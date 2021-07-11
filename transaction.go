@@ -54,3 +54,18 @@ func (s *TransactionService) ListN(count, offset int) (*TransactionList, error) 
 	err := s.client.Call("GET", u, nil, txns)
 	return txns, err
 }
+
+func (s *TransactionService) Get(id int) (*Transaction, error) {
+	u := fmt.Sprintf("/transaction/%d", id)
+	txn := &Transaction{}
+	err := s.client.Call("GET", u, nil, txn)
+	return txn, err
+}
+
+
+func (s *TransactionService) Verify(reference string) (*Transaction, error) {
+	u := fmt.Sprintf("/transaction/verify/%s", reference)
+	txn := &Transaction{}
+	err := s.client.Call("GET", u, nil, txn)
+	return txn, err
+}
