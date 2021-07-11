@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/mitchellh/mapstructure"
 	"io"
 	"io/ioutil"
 	"log"
@@ -12,7 +13,6 @@ import (
 	"os"
 	"strconv"
 	"time"
-	"github.com/mitchellh/mapstructure"
 )
 
 const (
@@ -156,14 +156,6 @@ func (c *Client) Call(method, path string, body, v interface{}) error {
 	return c.decodeResponse(resp, v)
 }
 
-// ResolveCardBIN docs https://developers.Petra.co/v1.0/reference#resolve-card-bin
-func (c *Client) ResolveCardBIN(bin int) (Response, error) {
-	u := fmt.Sprintf("/decision/bin/%d", bin)
-	resp := Response{}
-	err := c.Call("GET", u, nil, &resp)
-
-	return resp, err
-}
 
 
 
