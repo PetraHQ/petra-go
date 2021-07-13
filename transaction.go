@@ -32,7 +32,7 @@ type Transaction struct {
 type CreateTransactionRequest struct {
 	Amount            float32  `json:"amount,omitempty"`
 	Email             string   `json:"email,omitempty"`
-	Bearer            string   `json:"bearer,omitempty"`
+	Type 			  string	`json:"type,omitempty"`
 }
 
 
