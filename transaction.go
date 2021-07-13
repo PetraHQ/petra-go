@@ -37,7 +37,7 @@ type CreateTransactionRequest struct {
 
 
 func (s *TransactionService) Initialize(txn *CreateTransactionRequest) (Response, error) {
-	u := fmt.Sprintf("/transaction")
+	u := fmt.Sprintf("/transaction/initialize")
 	resp := Response{}
 	err := s.client.Call("POST", u, txn, &resp)
 	return resp, err
