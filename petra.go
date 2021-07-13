@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strconv"
 	"time"
 )
 
@@ -48,7 +47,7 @@ type Client struct {
 	Customer     *CustomerService
 	Transaction  *TransactionService
 	Page         *PageService
-
+	Invoice		 *InvoiceService
 	LoggingEnabled bool
 	Log            Logger
 }
@@ -107,6 +106,7 @@ func NewClient(key string, httpClient *http.Client) *Client {
 	c.Customer = (*CustomerService)(&c.common)
 	c.Transaction = (*TransactionService)(&c.common)
 	c.Page = (*PageService)(&c.common)
+	c.Invoice = (*InvoiceService)(&c.common)
 	return c
 }
 
@@ -159,22 +159,7 @@ func (c *Client) Call(method, path string, body, v interface{}) error {
 
 
 
-// GetSessionTimeout fetches payment session timeout
-func (c *Client) GetSessionTimeout() (Response, error) {
-	resp := Response{}
-	err := c.Call("GET", "/integration/payment_session_timeout", nil, &resp)
-	return resp, err
-}
 
-// UpdateSessionTimeout updates payment session timeout
-func (c *Client) UpdateSessionTimeout(timeout int) (Response, error) {
-	data := url.Values{}
-	data.Add("timeout", strconv.Itoa(timeout))
-	resp := Response{}
-	u := "/integration/payment_session_timeout"
-	err := c.Call("PUT", u, data, &resp)
-	return resp, err
-}
 
 // INTERNALS
 func paginateURL(path string, count, offset int) string {
